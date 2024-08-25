@@ -1,3 +1,4 @@
+import 'package:altel_group_web/pages/about_us_page.dart';
 import 'package:altel_group_web/pages/home_page.dart';
 import 'package:altel_group_web/pages/initial_page.dart';
 import 'package:altel_group_web/routes/routes_name.dart';
@@ -13,7 +14,11 @@ class RouteConfig {
           path: "/",
           name: RouteNames.initial,
           pageBuilder: (context, state) {
-            return const MaterialPage(child: InitialPage());
+            return const MaterialPage(
+              child: InitialPage(
+                page: HomePage(),
+              ),
+            );
           },
         ), // GoRoute
         GoRoute(
@@ -21,7 +26,9 @@ class RouteConfig {
           name: RouteNames.homePage,
           pageBuilder: (context, state) {
             return const MaterialPage(
-              child: HomePage(),
+              child: InitialPage(
+                page: HomePage(),
+              ),
             );
           },
         ),
@@ -29,15 +36,20 @@ class RouteConfig {
           path: "/about-us",
           name: RouteNames.aboutUs,
           pageBuilder: (context, state) {
+            final GlobalKey aboutUsContainerKey = state.extra as GlobalKey;
             return CustomTransitionPage(
-              child: const HomePage(),
+              child: InitialPage(
+                page: AboutUsPage(
+                  containerKey: aboutUsContainerKey,
+                ),
+              ),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
-                // Animation Transition
-                return ScaleTransition(
-                  scale: animation,
-                  child: child,
-                );
+                // Animations
+                // return ScaleTransition(
+                //   scale: animation,
+                //   child: child,
+                // );
                 // return SlideTransition(
                 //   position: Tween<Offset>(
                 //     begin: Offset(-1, -1), // Slides in from the right
@@ -45,10 +57,10 @@ class RouteConfig {
                 //   ).animate(animation),
                 //   child: child,
                 // );
-                // return FadeTransition(
-                //   opacity: animation,
-                //   child: child,
-                // );
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
               },
             );
           },
@@ -56,7 +68,9 @@ class RouteConfig {
       ],
       errorPageBuilder: (contetext, state) {
         return const MaterialPage(
-          child: InitialPage(),
+          child: InitialPage(
+            page: HomePage(),
+          ),
         );
       },
     ); // GoRouter
