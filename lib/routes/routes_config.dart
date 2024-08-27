@@ -36,7 +36,8 @@ class RouteConfig {
           path: "/about-us",
           name: RouteNames.aboutUs,
           pageBuilder: (context, state) {
-            final GlobalKey aboutUsContainerKey = state.extra as GlobalKey;
+            // final GlobalKey aboutUsContainerKey = state.extra as GlobalKey;
+            final GlobalKey? aboutUsContainerKey = state.extra as GlobalKey?;
             return CustomTransitionPage(
               child: InitialPage(
                 page: AboutUsPage(
@@ -45,18 +46,6 @@ class RouteConfig {
               ),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
-                // Animations
-                // return ScaleTransition(
-                //   scale: animation,
-                //   child: child,
-                // );
-                // return SlideTransition(
-                //   position: Tween<Offset>(
-                //     begin: Offset(-1, -1), // Slides in from the right
-                //     end: Offset.zero,
-                //   ).animate(animation),
-                //   child: child,
-                // );
                 return FadeTransition(
                   opacity: animation,
                   child: child,
@@ -64,7 +53,7 @@ class RouteConfig {
               },
             );
           },
-        ), // GoRoute // GoRoute
+        ), // GoRoute
       ],
       errorPageBuilder: (contetext, state) {
         return const MaterialPage(
