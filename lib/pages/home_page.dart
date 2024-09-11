@@ -19,18 +19,18 @@ class _HomePageState extends State<HomePage> {
         Column(
           children: [
             Container(
-              color: Colors.white,
+              color: const Color(0xFFD0E2E8),
               height: 2000,
               width: 500,
-              child: FloatingActionButton(
-                onPressed: () {
-                  context.goNamed(
-                    RouteNames.aboutUs,
-                    extra: aboutUsContainerKey,
-                  );
-                },
-                child: const Icon(Icons.arrow_forward),
-              ),
+              // child: FloatingActionButton(
+              //   onPressed: () {
+              //     context.goNamed(
+              //       RouteNames.aboutUs,
+              //       extra: aboutUsContainerKey,
+              //     );
+              //   },
+              //   child: const Icon(Icons.arrow_forward),
+              // ),
             ),
           ],
         ),

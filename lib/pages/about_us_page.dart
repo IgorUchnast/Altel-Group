@@ -91,13 +91,13 @@ class _AboutUsPageState extends State<AboutUsPage> {
         Column(
           children: [
             Container(
-              color: Colors.green,
+              color: const Color(0xFFD0E2E8),
               height: 2000,
               width: 500,
             ),
             Container(
               key: widget.containerKey,
-              color: Colors.yellow,
+              color: Colors.red,
               height: 2000,
               width: 500,
               child: const Text("DUPA"),
