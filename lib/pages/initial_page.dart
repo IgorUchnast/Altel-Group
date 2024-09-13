@@ -201,11 +201,16 @@
 //   }
 // }
 
-// ******************************************************************************************
 //**************************************** POPRAWNA WERSJA ****************************************
+
 import 'package:altel_group_web/routes/routes_name.dart';
+// import 'package:altel_group_web/widgets/container_navigator.dart';
+import 'package:altel_group_web/widgets/subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+// import 'package:go_router/go_router.dart';
+import '../widgets/tab_bar.dart';
+// import '../widgets/container_navigator.dart';
 
 class InitialPage extends StatefulWidget {
   const InitialPage({
@@ -218,132 +223,6 @@ class InitialPage extends StatefulWidget {
   State<InitialPage> createState() => _InitialPageState();
 }
 
-// class _InitialPageState extends State<InitialPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     Size screenSize = MediaQuery.of(context).size;
-
-//     return SelectionArea(
-//       child: Scaffold(
-//         backgroundColor: const Color(0xFFD0E2E8),
-//         body: CustomScrollView(
-//           slivers: [
-//             SliverPersistentHeader(
-//               pinned: true, // Nagłówek będzie przypięty u góry
-//               delegate: MySliverAppBarDelegate(
-//                 minHeight: 170.0,
-//                 maxHeight: 700.0,
-//                 screenSize: screenSize,
-//               ),
-//             ),
-//             SliverToBoxAdapter(
-//               child: widget.page,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-//   final double minHeight;
-//   final double maxHeight;
-//   final Size screenSize;
-
-//   MySliverAppBarDelegate({
-//     required this.minHeight,
-//     required this.maxHeight,
-//     required this.screenSize,
-//   });
-
-//   @override
-//   double get minExtent => minHeight;
-
-//   @override
-//   double get maxExtent => maxHeight;
-
-//   @override
-//   Widget build(
-//       BuildContext context, double shrinkOffset, bool overlapsContent) {
-//     // Obliczanie koloru na podstawie shrinkOffset
-//     double appbarHeight = shrinkOffset / (maxExtent - minExtent);
-//     double containerHeight = 200 * (1 - appbarHeight);
-//     double imageOpacity = 1.0 - appbarHeight;
-
-//     return Container(
-//       color: Colors.transparent,
-//       child: Stack(
-//         fit: StackFit.expand,
-//         children: [
-//           Opacity(
-//             opacity: imageOpacity,
-//             child: Image.asset(
-//               "images/homePage.jpg",
-//               fit: BoxFit.cover,
-//             ),
-//           ),
-//           Container(
-//             margin: const EdgeInsets.all(40),
-//             padding: const EdgeInsets.all(10),
-//             decoration: BoxDecoration(
-//               color: Colors.white.withOpacity(0.9),
-//               borderRadius: BorderRadius.circular(50),
-//             ),
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [
-//                 TabBar(
-//                   tabBarHeight: containerHeight,
-//                 ),
-//                 const Divider(),
-//                 if (containerHeight > 50)
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       ContainerNavigator(
-//                         subtitle: "Serwis",
-//                         containerHeight: containerHeight,
-//                         containerWidth: screenSize.width * 0.4,
-//                       ),
-//                       ContainerNavigator(
-//                         subtitle: "dźwigi",
-//                         containerHeight: containerHeight,
-//                         containerWidth: screenSize.width * 0.4,
-//                       ),
-//                     ],
-//                   ),
-//                 if (containerHeight > 100)
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       ContainerNavigator(
-//                         subtitle: "referencje",
-//                         containerHeight: containerHeight,
-//                         containerWidth: screenSize.width * 0.4,
-//                       ),
-//                       ContainerNavigator(
-//                         subtitle: "aktualności",
-//                         containerHeight: containerHeight,
-//                         containerWidth: screenSize.width * 0.4,
-//                       ),
-//                     ],
-//                   ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-
-//   @override
-//   bool shouldRebuild(MySliverAppBarDelegate oldDelegate) {
-//     return maxHeight != oldDelegate.maxHeight ||
-//         minHeight != oldDelegate.minHeight ||
-//         screenSize != oldDelegate.screenSize;
-//   }
-// }
 class _InitialPageState extends State<InitialPage> {
   final ScrollController _scrollController = ScrollController();
 
@@ -449,7 +328,10 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     double textOpacity,
   ) {
     return Container(
-      margin: const EdgeInsets.all(40),
+      // margin: const EdgeInsets.all(40),
+      margin: screenSize.width > 900
+          ? const EdgeInsets.all(40)
+          : const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.9),
@@ -458,11 +340,11 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TabBar(
+          TabBarNavigator(
             tabBarHeight: containerHeight,
           ),
           const Divider(),
-          if (containerHeight > 80)
+          if (containerHeight > 86)
             _buildRow(
               [
                 "Serwis",
@@ -474,9 +356,8 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                 "Oferujemy profesjonalne usługi serwisowe zapewniające niezawodność i bezpieczeństwo wszystkich instalacji.",
                 "Specjalizujemy się w dostarczaniu nowoczesnych i bezpiecznych rozwiązań dźwigowych, dopasowanych do indywidualnych potrzeb klientów."
               ],
-              16,
+              screenSize.width * 0.013,
               1,
-              // textOpacity,
             ),
           if (containerHeight > 100)
             _buildRow(
@@ -490,42 +371,14 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                 "Zaufaj naszym realizacjom – współpracowaliśmy z wieloma zadowolonymi klientami z różnych branż.",
                 "Bądź na bieżąco z najnowszymi informacjami i osiągnięciami firmy ALTEL Group."
               ],
-              16,
+              screenSize.width * 0.013,
               1,
-              // textOpacity,
             ),
         ],
       ),
     );
   }
 
-  // Row _buildRow(
-  //     List<String> subtitles, // Lista przekazanych podtytułów
-  //     Size screenSize,
-  //     double containerHeight,
-  //     List<String> containerText,
-  //     double textSize,
-  //     int textNumber,
-  //     double textOpacity) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: subtitles.map((subtitle) {
-  //       return AnimatedOpacity(
-  //         opacity: containerHeight > 50 ? 1.0 : 0.0, // Zmienna przezroczystość
-  //         duration: const Duration(milliseconds: 300),
-  //         child: ContainerNavigator(
-  //           textOpacity: textOpacity,
-  //           subtitle: subtitle, // Dynamicznie przypisane podtytuły
-  //           containerHeight: containerHeight,
-  //           containerWidth: screenSize.width * 0.4,
-  //           textSize: textSize,
-  //           containerText: containerText,
-  //           textNumber: index,
-  //         ),
-  //       );
-  //     }).toList(),
-  //   );
-  // }
   Row _buildRow(
     List<String> subtitles,
     Size screenSize,
@@ -544,7 +397,10 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
             textOpacity: textOpacity,
             subtitle: subtitles[index], // Użycie dynamicznego podtytułu
             containerHeight: containerHeight,
-            containerWidth: screenSize.width * 0.4,
+            // containerWidth: screenSize.width * 0.4,
+            containerWidth:
+                screenSize.width * 0.4 > 250 ? screenSize.width * 0.4 : 200,
+            // textSize: screenSize.width * 0.013,
             textSize: textSize,
             containerText: containerText,
             textNumber: index, // Użycie dynamicznego indeksu
@@ -562,8 +418,6 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         scrollOffset != oldDelegate.scrollOffset;
   }
 }
-
-//**************************************** POPRAWNA WERSJA ****************************************
 
 // ******************************************************************************************
 
@@ -594,6 +448,7 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
   final GlobalKey aboutUsContainerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    // Size screenSize = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         context.goNamed(
@@ -621,9 +476,10 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
             right: 20,
             left: 20,
           ),
-          constraints: const BoxConstraints(minHeight: 60, minWidth: 200),
+          // constraints: const BoxConstraints(minHeight: 60, minWidth: 200),
           height: widget.containerHeight,
           width: widget.containerWidth,
+          // width: screenSize > : widget.containerWidth,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(50),
@@ -643,188 +499,27 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
               Subtitle(
                 subtitle: widget.subtitle,
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: Opacity(
-                  opacity: widget.textOpacity,
-                  child: Text(
-                    widget.containerText[widget.textNumber],
-                    textAlign: TextAlign.justify,
-                    // softWrap: true,
-                    overflow: TextOverflow.clip,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: widget.textSize,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TabBar extends StatefulWidget {
-  const TabBar({
-    super.key,
-    required this.tabBarHeight,
-  });
-  final double tabBarHeight;
-  @override
-  State<TabBar> createState() => _TabBarState();
-}
-
-class _TabBarState extends State<TabBar> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(
-        10,
-        // 20,
-        // widget.tabBarHeight / 10,
-        0,
-        10,
-        widget.tabBarHeight / 10,
-      ),
-      color: Colors.transparent,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Image.asset(
-            "images/logo.png",
-            scale: 2,
-          ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.home, size: 25),
-              TabBarNavigatorButton(
-                buttonTitle: "o firmie",
-              ),
-              TabBarNavigatorButton(
-                buttonTitle: "oferta",
-              ),
-              TabBarNavigatorButton(
-                buttonTitle: "kariera",
-              ),
-              TabBarNavigatorButton(
-                buttonTitle: "kontakt",
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TabBarNavigatorButton extends StatefulWidget {
-  const TabBarNavigatorButton({
-    super.key,
-    required this.buttonTitle,
-  });
-  final String buttonTitle;
-  @override
-  State<TabBarNavigatorButton> createState() => TabBarNavigatorButtonState();
-}
-
-class TabBarNavigatorButtonState extends State<TabBarNavigatorButton> {
-  bool isSelected = false;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        context.goNamed(
-          RouteNames.aboutUs,
-        );
-      },
-      child: MouseRegion(
-        onEnter: (_) {
-          setState(() {
-            isSelected = true;
-          });
-        },
-        onExit: (_) {
-          setState(
-            () {
-              isSelected = false;
-            },
-          );
-        },
-        child: AnimatedDefaultTextStyle(
-          duration: const Duration(milliseconds: 100),
-          // style: AGfonts.tabBarFont,
-          style: isSelected
-              ? const TextStyle(
-                  color: Colors.lightBlue,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                )
-              : const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                ),
-          child: Container(
-            margin: const EdgeInsets.only(
-              left: 30,
-              right: 30,
-              bottom: 15,
-              top: 15,
-            ),
-            child: Text(
-              widget.buttonTitle.toUpperCase(),
-              // style: AGfonts.tabBarFont,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Subtitle extends StatelessWidget {
-  const Subtitle({
-    super.key,
-    required this.subtitle,
-  });
-  final String subtitle;
-  @override
-  Widget build(BuildContext context) {
-    // Size screenSize = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10, left: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SelectionArea(
-                    child: Text(
-                      subtitle.toUpperCase(),
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
+              if (widget.containerHeight > 180)
+                if (widget.containerWidth > 250)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    child: Opacity(
+                      opacity: widget.textOpacity,
+                      child: Text(
+                        widget.containerText[widget.textNumber],
+                        textAlign: TextAlign.justify,
+                        softWrap: true,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: widget.textSize,
+                        ),
                       ),
                     ),
                   ),
-                ],
-              ),
-              Container(
-                color: Colors.lightBlueAccent.withOpacity(0.5),
-                height: 7,
-                width: 60,
-              ),
             ],
           ),
         ),
-      ],
+      ),
     );
   }
 }
