@@ -417,6 +417,7 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         (scrollOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
     double containerHeight = 200 * (1 - appbarHeight);
     double imageOpacity = (1.0 - appbarHeight).clamp(0.0, 1.0);
+    double textOpacity = (1.0 - appbarHeight * 5).clamp(0.0, 1.0);
 
     return Container(
       color: Colors.transparent,
@@ -430,14 +431,23 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
               fit: BoxFit.cover,
             ),
           ),
-          _buildHeaderContent(containerHeight, screenSize, imageOpacity),
+          _buildHeaderContent(
+            containerHeight,
+            screenSize,
+            imageOpacity,
+            textOpacity,
+          ),
         ],
       ),
     );
   }
 
   Widget _buildHeaderContent(
-      double containerHeight, Size screenSize, double imageOpacity) {
+    double containerHeight,
+    Size screenSize,
+    double imageOpacity,
+    double textOpacity,
+  ) {
     return Container(
       margin: const EdgeInsets.all(40),
       padding: const EdgeInsets.all(10),
@@ -452,7 +462,7 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
             tabBarHeight: containerHeight,
           ),
           const Divider(),
-          if (containerHeight > 50)
+          if (containerHeight > 80)
             _buildRow(
               [
                 "Serwis",
@@ -460,6 +470,13 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
               ],
               screenSize,
               containerHeight,
+              [
+                "Oferujemy profesjonalne usługi serwisowe zapewniające niezawodność i bezpieczeństwo wszystkich instalacji.",
+                "Specjalizujemy się w dostarczaniu nowoczesnych i bezpiecznych rozwiązań dźwigowych, dopasowanych do indywidualnych potrzeb klientów."
+              ],
+              16,
+              1,
+              // textOpacity,
             ),
           if (containerHeight > 100)
             _buildRow(
@@ -469,23 +486,71 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
               ],
               screenSize,
               containerHeight,
+              [
+                "Zaufaj naszym realizacjom – współpracowaliśmy z wieloma zadowolonymi klientami z różnych branż.",
+                "Bądź na bieżąco z najnowszymi informacjami i osiągnięciami firmy ALTEL Group."
+              ],
+              16,
+              1,
+              // textOpacity,
             ),
         ],
       ),
     );
   }
 
+  // Row _buildRow(
+  //     List<String> subtitles, // Lista przekazanych podtytułów
+  //     Size screenSize,
+  //     double containerHeight,
+  //     List<String> containerText,
+  //     double textSize,
+  //     int textNumber,
+  //     double textOpacity) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: subtitles.map((subtitle) {
+  //       return AnimatedOpacity(
+  //         opacity: containerHeight > 50 ? 1.0 : 0.0, // Zmienna przezroczystość
+  //         duration: const Duration(milliseconds: 300),
+  //         child: ContainerNavigator(
+  //           textOpacity: textOpacity,
+  //           subtitle: subtitle, // Dynamicznie przypisane podtytuły
+  //           containerHeight: containerHeight,
+  //           containerWidth: screenSize.width * 0.4,
+  //           textSize: textSize,
+  //           containerText: containerText,
+  //           textNumber: index,
+  //         ),
+  //       );
+  //     }).toList(),
+  //   );
+  // }
   Row _buildRow(
-      List<String> subtitles, Size screenSize, double containerHeight) {
+    List<String> subtitles,
+    Size screenSize,
+    double containerHeight,
+    List<String> containerText,
+    double textSize,
+    double textOpacity,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: subtitles.map((subtitle) {
-        return ContainerNavigator(
-          subtitle: subtitle,
-          containerHeight: containerHeight,
-          containerWidth: screenSize.width * 0.4,
+      children: List.generate(subtitles.length, (index) {
+        return AnimatedOpacity(
+          opacity: containerHeight > 50 ? 1.0 : 0.0,
+          duration: const Duration(milliseconds: 300),
+          child: ContainerNavigator(
+            textOpacity: textOpacity,
+            subtitle: subtitles[index], // Użycie dynamicznego podtytułu
+            containerHeight: containerHeight,
+            containerWidth: screenSize.width * 0.4,
+            textSize: textSize,
+            containerText: containerText,
+            textNumber: index, // Użycie dynamicznego indeksu
+          ),
         );
-      }).toList(),
+      }),
     );
   }
 
@@ -508,10 +573,18 @@ class ContainerNavigator extends StatefulWidget {
     required this.containerHeight,
     required this.containerWidth,
     required this.subtitle,
+    required this.containerText,
+    required this.textNumber,
+    required this.textSize,
+    required this.textOpacity,
   });
   final double containerHeight;
   final double containerWidth;
   final String subtitle;
+  final List<String> containerText;
+  final int textNumber;
+  final double textSize;
+  final double textOpacity;
   @override
   State<ContainerNavigator> createState() => _ContainerNavigatorState();
 }
@@ -542,31 +615,53 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
           );
         },
         child: Container(
-            padding: const EdgeInsets.all(20),
-            margin: EdgeInsets.only(
-              top: widget.containerHeight / 10,
-              right: 20,
-              left: 20,
-            ),
-            height: widget.containerHeight,
-            width: widget.containerWidth,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(50),
-              boxShadow: [
-                BoxShadow(
-                  color: isSelected
-                      ? Colors.grey.withOpacity(0.2)
-                      : Colors.transparent,
-                  spreadRadius: 5,
-                  blurRadius: 7, // How much the shadow is blurred
-                  offset: const Offset(0, 3), // Changes position of shadow
+          padding: const EdgeInsets.all(20),
+          margin: EdgeInsets.only(
+            top: widget.containerHeight / 10,
+            right: 20,
+            left: 20,
+          ),
+          constraints: const BoxConstraints(minHeight: 60, minWidth: 200),
+          height: widget.containerHeight,
+          width: widget.containerWidth,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(50),
+            boxShadow: [
+              BoxShadow(
+                color: isSelected
+                    ? Colors.grey.withOpacity(0.2)
+                    : Colors.transparent,
+                spreadRadius: 5,
+                blurRadius: 7, // How much the shadow is blurred
+                offset: const Offset(0, 3), // Changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Subtitle(
+                subtitle: widget.subtitle,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Opacity(
+                  opacity: widget.textOpacity,
+                  child: Text(
+                    widget.containerText[widget.textNumber],
+                    textAlign: TextAlign.justify,
+                    // softWrap: true,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: widget.textSize,
+                    ),
+                  ),
                 ),
-              ],
-            ),
-            child: Subtitle(
-              subtitle: widget.subtitle,
-            )),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
