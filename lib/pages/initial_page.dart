@@ -204,13 +204,10 @@
 //**************************************** POPRAWNA WERSJA ****************************************
 
 import 'package:altel_group_web/routes/routes_name.dart';
-// import 'package:altel_group_web/widgets/container_navigator.dart';
 import 'package:altel_group_web/widgets/subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:go_router/go_router.dart';
 import '../widgets/tab_bar.dart';
-// import '../widgets/container_navigator.dart';
 
 class InitialPage extends StatefulWidget {
   const InitialPage({
@@ -247,6 +244,7 @@ class _InitialPageState extends State<InitialPage> {
     return SelectionArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFD0E2E8),
+        endDrawer: screenSize.width > 800 ? const Drawer() : const Drawer(),
         body: CustomScrollView(
           controller: _scrollController,
           slivers: [
@@ -350,13 +348,15 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                 "Serwis",
                 "Dźwigi",
               ],
-              screenSize,
-              containerHeight,
+              // screenSize ,
+              screenSize.width > 400 ? screenSize : screenSize * 0.9,
+              // containerHeight,
+              screenSize.width > 550 ? containerHeight : 120,
               [
                 "Oferujemy profesjonalne usługi serwisowe zapewniające niezawodność i bezpieczeństwo wszystkich instalacji.",
                 "Specjalizujemy się w dostarczaniu nowoczesnych i bezpiecznych rozwiązań dźwigowych, dopasowanych do indywidualnych potrzeb klientów."
               ],
-              screenSize.width * 0.013,
+              screenSize.width * 0.012,
               1,
             ),
           if (containerHeight > 100)
@@ -365,13 +365,15 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                 "Referencje",
                 "Aktualności",
               ],
-              screenSize,
-              containerHeight,
+              // screenSize,
+              // containerHeight,
+              screenSize.width > 400 ? screenSize : screenSize,
+              screenSize.width > 550 ? containerHeight : 120,
               [
                 "Zaufaj naszym realizacjom – współpracowaliśmy z wieloma zadowolonymi klientami z różnych branż.",
                 "Bądź na bieżąco z najnowszymi informacjami i osiągnięciami firmy ALTEL Group."
               ],
-              screenSize.width * 0.013,
+              screenSize.width * 0.012,
               1,
             ),
         ],
@@ -395,15 +397,13 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
           duration: const Duration(milliseconds: 300),
           child: ContainerNavigator(
             textOpacity: textOpacity,
-            subtitle: subtitles[index], // Użycie dynamicznego podtytułu
+            subtitle: subtitles[index],
             containerHeight: containerHeight,
-            // containerWidth: screenSize.width * 0.4,
             containerWidth:
-                screenSize.width * 0.4 > 250 ? screenSize.width * 0.4 : 200,
-            // textSize: screenSize.width * 0.013,
+                screenSize.width * 0.4 > 250 ? screenSize.width * 0.4 : 150,
             textSize: textSize,
             containerText: containerText,
-            textNumber: index, // Użycie dynamicznego indeksu
+            textNumber: index,
           ),
         );
       }),
@@ -479,7 +479,6 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
           // constraints: const BoxConstraints(minHeight: 60, minWidth: 200),
           height: widget.containerHeight,
           width: widget.containerWidth,
-          // width: screenSize > : widget.containerWidth,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(50),
@@ -497,6 +496,7 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
           child: Column(
             children: [
               Subtitle(
+                fontSizeSubtitle: widget.containerWidth > 300 ? 20 : 13,
                 subtitle: widget.subtitle,
               ),
               if (widget.containerHeight > 180)

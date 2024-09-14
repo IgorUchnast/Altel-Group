@@ -76,7 +76,10 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
           ),
           child: Column(
             children: [
-              Subtitle(subtitle: widget.subtitle),
+              Subtitle(
+                subtitle: widget.subtitle,
+                fontSizeSubtitle: 20,
+              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: Opacity(

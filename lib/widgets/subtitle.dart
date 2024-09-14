@@ -4,12 +4,14 @@ class Subtitle extends StatelessWidget {
   const Subtitle({
     super.key,
     required this.subtitle,
+    required this.fontSizeSubtitle,
   });
   final String subtitle;
+  final double fontSizeSubtitle;
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    // Size screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
         Padding(
@@ -24,11 +26,10 @@ class Subtitle extends StatelessWidget {
                     child: Text(
                       subtitle.toUpperCase(),
                       style: TextStyle(
-                        fontSize: screenSize.width > 300
-                            ? 20
-                            : screenSize.width * 0.15,
+                        fontSize: fontSizeSubtitle,
                         fontWeight: FontWeight.w900,
                       ),
+                      // textAlign: Align.,
                     ),
                   ),
                 ],
