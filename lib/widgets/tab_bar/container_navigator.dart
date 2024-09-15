@@ -21,7 +21,6 @@ class ContainerNavigator extends StatefulWidget {
   final int textNumber;
   final double textSize;
   final double textOpacity;
-
   @override
   State<ContainerNavigator> createState() => _ContainerNavigatorState();
 }
@@ -29,9 +28,9 @@ class ContainerNavigator extends StatefulWidget {
 class _ContainerNavigatorState extends State<ContainerNavigator> {
   bool isSelected = false;
   final GlobalKey aboutUsContainerKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
+    // Size screenSize = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         context.goNamed(
@@ -46,9 +45,11 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
           });
         },
         onExit: (_) {
-          setState(() {
-            isSelected = false;
-          });
+          setState(
+            () {
+              isSelected = false;
+            },
+          );
         },
         child: Container(
           padding: const EdgeInsets.all(20),
@@ -56,8 +57,9 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
             top: widget.containerHeight / 10,
             right: 20,
             left: 20,
+            bottom: widget.containerHeight / 10,
           ),
-          constraints: const BoxConstraints(minHeight: 60, minWidth: 200),
+          // constraints: const BoxConstraints(minHeight: 60, minWidth: 200),
           height: widget.containerHeight,
           width: widget.containerWidth,
           decoration: BoxDecoration(
@@ -69,32 +71,34 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
                     ? Colors.grey.withOpacity(0.2)
                     : Colors.transparent,
                 spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
+                blurRadius: 7, // How much the shadow is blurred
+                offset: const Offset(0, 3), // Changes position of shadow
               ),
             ],
           ),
           child: Column(
             children: [
               Subtitle(
+                fontSizeSubtitle: widget.containerWidth > 300 ? 20 : 13,
                 subtitle: widget.subtitle,
-                fontSizeSubtitle: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: Opacity(
-                  opacity: widget.textOpacity,
-                  child: Text(
-                    widget.containerText[widget.textNumber],
-                    textAlign: TextAlign.justify,
-                    overflow: TextOverflow.clip,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: widget.textSize,
+              if (widget.containerHeight > 180)
+                if (widget.containerWidth > 250)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    child: Opacity(
+                      opacity: widget.textOpacity,
+                      child: Text(
+                        widget.containerText[widget.textNumber],
+                        textAlign: TextAlign.justify,
+                        softWrap: true,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: widget.textSize,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
             ],
           ),
         ),

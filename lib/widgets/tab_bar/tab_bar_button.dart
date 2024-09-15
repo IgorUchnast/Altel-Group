@@ -40,6 +40,7 @@ class TabBarNavigatorButtonState extends State<TabBarNavigatorButton> {
           style: isSelected
               ? const TextStyle(
                   color: Colors.lightBlue,
+                  // color: Color(0xFFD0E2E8),
                   fontSize: 20,
                   fontWeight: FontWeight.w900,
                 )

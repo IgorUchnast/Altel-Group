@@ -42,7 +42,8 @@ class _DrawerButtonNavigatorState extends State<DrawerButtonNavigator> {
         child: Container(
           padding: const EdgeInsets.all(20),
           alignment: Alignment.centerLeft,
-          color: isSelected ? Colors.lightBlue.withOpacity(0.8) : Colors.white,
+          // color: isSelected ? Colors.lightBlue.withOpacity(0.8) : Colors.white,
+          color: isSelected ? const Color(0xFFD0E2E8) : Colors.white,
           width: widget.containerWidth,
           height: 60,
           child: Text(
