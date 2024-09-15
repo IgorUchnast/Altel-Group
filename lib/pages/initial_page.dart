@@ -207,7 +207,7 @@ import 'package:altel_group_web/routes/routes_name.dart';
 import 'package:altel_group_web/widgets/subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../widgets/tab_bar.dart';
+import '../widgets/tab_bar/tab_bar.dart';
 
 class InitialPage extends StatefulWidget {
   const InitialPage({
@@ -339,6 +339,8 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TabBarNavigator(
+            tabBarDrawerHeight: screenSize.height,
+            tabBarDrawerWidth: screenSize.width,
             tabBarHeight: containerHeight,
           ),
           const Divider(),
