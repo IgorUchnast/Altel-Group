@@ -22,7 +22,7 @@ class _ContactContainerState extends State<ContactContainer> {
         ),
       ),
       child: Wrap(
-        alignment: WrapAlignment.spaceBetween,
+        alignment: WrapAlignment.spaceEvenly,
         spacing: 10,
         runSpacing: 30,
         children: [

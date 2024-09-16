@@ -16,6 +16,7 @@ class RouteConfig {
           pageBuilder: (context, state) {
             return const MaterialPage(
               child: InitialPage(
+                pageName: RouteNames.initial,
                 page: HomePage(),
               ),
             );
@@ -27,6 +28,7 @@ class RouteConfig {
           pageBuilder: (context, state) {
             return const MaterialPage(
               child: InitialPage(
+                pageName: RouteNames.homePage,
                 page: HomePage(),
               ),
             );
@@ -40,6 +42,7 @@ class RouteConfig {
             final GlobalKey? aboutUsContainerKey = state.extra as GlobalKey?;
             return CustomTransitionPage(
               child: InitialPage(
+                pageName: RouteNames.aboutUs,
                 page: AboutUsPage(
                   containerKey: aboutUsContainerKey,
                 ),
@@ -58,6 +61,7 @@ class RouteConfig {
       errorPageBuilder: (contetext, state) {
         return const MaterialPage(
           child: InitialPage(
+            pageName: RouteNames.initial,
             page: HomePage(),
           ),
         );

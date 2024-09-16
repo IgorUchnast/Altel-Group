@@ -1,5 +1,6 @@
 import 'package:altel_group_web/routes/routes_name.dart';
 import 'package:altel_group_web/widgets/tab_bar/drawer_button.dart';
+import 'package:altel_group_web/widgets/tab_bar/icon_navigator_button.dart';
 import 'package:altel_group_web/widgets/tab_bar/tab_bar_button.dart';
 import 'package:flutter/material.dart';
 
@@ -131,7 +132,9 @@ class _TabBarNavigatorState extends State<TabBarNavigator> {
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.home, size: 25),
+                    IconNavigatorButton(
+                      pageName: RouteNames.homePage,
+                    ),
                     TabBarNavigatorButton(
                       buttonTitle: "o firmie",
                       pageName: RouteNames.aboutUs,
