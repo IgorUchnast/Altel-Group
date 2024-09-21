@@ -38,34 +38,20 @@ class _NavigatingButtonState extends State<NavigatingButton> {
           // style: AGfonts.tabBarFont,
           style: isSelected
               ? const TextStyle(color: Colors.black)
-              : const TextStyle(color: Colors.blue),
-          // child: Container(
-          //   color: Colors.white,
-          //   padding: const EdgeInsets.only(top: 20, bottom: 20),
-          //   margin: const EdgeInsets.only(
-          //     left: 25,
-          //     right: 25,
-          //     bottom: 15,
-          //     top: 15,
-          //   ),
-          //   child: Text(
-          //     widget.navigatingText.toUpperCase(),
-          //     style:
-          //         isSelected ? AGfonts.navigatorHover : AGfonts.navigatorFont,
-          //   ),
-          // ),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 20,
-              bottom: 20,
-              right: 20,
-              left: 20,
-            ),
+              : TextStyle(color: Colors.lightBlue.withOpacity(0.9)),
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+            margin: const EdgeInsets.all(10),
+            // decoration: BoxDecoration(
+            //   color: isSelected
+            //       ? Colors.lightBlueAccent.withOpacity(0.8)
+            //       : const Color(0xFFD0E2E8),
+            // ),
             child: Text(
               widget.navigatingText.toUpperCase(),
               style: isSelected
-                  ? const TextStyle(color: Colors.red)
-                  : const TextStyle(color: Colors.blue),
+                  ? const TextStyle(color: Colors.white)
+                  : const TextStyle(color: Colors.black),
             ),
           ),
         ),

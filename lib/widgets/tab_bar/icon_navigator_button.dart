@@ -6,9 +6,11 @@ class IconNavigatorButton extends StatefulWidget {
     super.key,
     // required this.buttonIcon,
     required this.pageName,
+    required this.scrollController,
   });
   // final Icons buttonIcon;
   final String pageName;
+  final ScrollController scrollController;
   @override
   State<IconNavigatorButton> createState() => IconNavigatorButtonState();
 }
@@ -20,6 +22,7 @@ class IconNavigatorButtonState extends State<IconNavigatorButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        widget.scrollController.jumpTo(0);
         context.goNamed(
           widget.pageName,
         );

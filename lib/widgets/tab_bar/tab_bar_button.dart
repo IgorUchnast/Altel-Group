@@ -6,9 +6,11 @@ class TabBarNavigatorButton extends StatefulWidget {
     super.key,
     required this.buttonTitle,
     required this.pageName,
+    required this.scrollController,
   });
   final String buttonTitle;
   final String pageName;
+  final ScrollController scrollController;
   @override
   State<TabBarNavigatorButton> createState() => TabBarNavigatorButtonState();
 }
@@ -20,6 +22,7 @@ class TabBarNavigatorButtonState extends State<TabBarNavigatorButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        widget.scrollController.jumpTo(0);
         context.goNamed(
           widget.pageName,
         );

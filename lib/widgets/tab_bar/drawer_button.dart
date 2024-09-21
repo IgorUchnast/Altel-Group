@@ -8,11 +8,14 @@ class DrawerButtonNavigator extends StatefulWidget {
     required this.closeDrawer,
     required this.buttonText,
     required this.pageName,
+    required this.scrollController,
   });
   final double containerWidth;
   final String buttonText;
   final String pageName;
   final void Function() closeDrawer;
+  final ScrollController scrollController;
+
   @override
   State<DrawerButtonNavigator> createState() => _DrawerButtonNavigatorState();
 }
@@ -24,6 +27,7 @@ class _DrawerButtonNavigatorState extends State<DrawerButtonNavigator> {
     return GestureDetector(
       onTap: () {
         widget.closeDrawer();
+        widget.scrollController.jumpTo(0);
         context.goNamed(
           widget.pageName,
         );

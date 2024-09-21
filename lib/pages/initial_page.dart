@@ -1,6 +1,7 @@
 //**************************************** POPRAWNA WERSJA ****************************************
+import 'package:altel_group_web/widgets/contact_container.dart';
 import 'package:altel_group_web/widgets/tab_bar/bar_page_view.dart';
-import 'package:altel_group_web/widgets/tab_bar/container_navigator.dart';
+import 'package:altel_group_web/widgets/tab_bar/tab_bar_home_view.dart';
 import 'package:flutter/material.dart';
 import '../widgets/tab_bar/tab_bar.dart';
 
@@ -25,6 +26,9 @@ class _InitialPageState extends State<InitialPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(0);
+    });
     _scrollController.addListener(() {
       setState(() {});
     });
@@ -39,7 +43,6 @@ class _InitialPageState extends State<InitialPage> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-
     return SelectionArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFD0E2E8),
@@ -49,18 +52,23 @@ class _InitialPageState extends State<InitialPage> {
             SliverPersistentHeader(
               pinned: true,
               delegate: MySliverAppBarDelegate(
-                  minHeight: 170.0,
-                  maxHeight: 700.0,
-                  screenSize: screenSize,
-                  scrollOffset: _scrollController.hasClients
-                      ? _scrollController.offset
-                      : 0,
-                  pageName: widget.pageName
-                  // tabBarView: widget.tabBarView,
-                  ),
+                minHeight: 170.0,
+                // maxHeight: 700.0,
+                maxHeight:
+                    screenSize.width > 250 ? 700 : screenSize.height * 0.7,
+                screenSize: screenSize,
+                scrollOffset:
+                    _scrollController.hasClients ? _scrollController.offset : 0,
+                pageName: widget.pageName,
+                scrollController: _scrollController,
+                // tabBarView: widget.tabBarView,
+              ),
             ),
             SliverToBoxAdapter(
               child: widget.page,
+            ),
+            const SliverToBoxAdapter(
+              child: ContactContainer(),
             ),
           ],
         ),
@@ -75,6 +83,8 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final Size screenSize;
   final double scrollOffset;
   final String pageName;
+  final ScrollController scrollController;
+
   // final Widget tabBarView;
 
   MySliverAppBarDelegate({
@@ -83,6 +93,7 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     required this.screenSize,
     required this.scrollOffset,
     required this.pageName,
+    required this.scrollController,
     // required this.tabBarView,
   });
 
@@ -107,19 +118,11 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         children: [
           Opacity(
             opacity: imageOpacity,
-            // child: Image.asset(
-            //   "images/homePage.jpg",
-            //   fit: BoxFit.cover,
-            // ),
+            // child: Image.asset("images/homePage.jpg", fit: BoxFit.cover),
             child: _buildHeaderBackground(pageName),
           ),
-          _buildHeaderContent(
-            containerHeight,
-            screenSize,
-            imageOpacity,
-            textOpacity,
-            pageName,
-          ),
+          _buildHeaderContent(containerHeight, screenSize, imageOpacity,
+              textOpacity, pageName, appbarHeight),
         ],
       ),
     );
@@ -133,54 +136,75 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         return Image.asset("images/homePage.jpg", fit: BoxFit.cover);
       case 'about-us':
         return Image.asset("images/about_us.jpg", fit: BoxFit.cover);
+      case 'offer':
+        return Image.asset("images/offer.jpg", fit: BoxFit.cover);
+      case 'career':
+        return Image.asset("images/image2.jpg", fit: BoxFit.cover);
+      case 'contact':
+        return Image.asset("images/image1.jpg", fit: BoxFit.cover);
       default:
         return Image.asset("images/homePage.jpg", fit: BoxFit.cover);
     }
   }
 
   Widget _buildHeaderContent(
-    double containerHeight,
-    Size screenSize,
-    double imageOpacity,
-    double textOpacity,
-    String pageName,
-  ) {
+      double containerHeight,
+      Size screenSize,
+      double imageOpacity,
+      double textOpacity,
+      String pageName,
+      double appbarHeight) {
     return Container(
       // margin: const EdgeInsets.all(40),
       margin: screenSize.width > 900
-          ? const EdgeInsets.all(40)
+          ? const EdgeInsets.all(30)
           : const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.9),
+        color:
+            appbarHeight > 0.9 ? Colors.white : Colors.white.withOpacity(0.9),
         borderRadius: BorderRadius.circular(50),
+        boxShadow: [
+          BoxShadow(
+            spreadRadius: 5,
+            blurRadius: 7, // How much the shadow is blurred
+            offset: const Offset(0, 3),
+            color: Colors.grey.withOpacity(0.4),
+          ),
+        ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TabBarNavigator(
+            scrollController: scrollController,
             tabBarDrawerHeight: screenSize.height,
             tabBarDrawerWidth: screenSize.width,
             tabBarHeight: containerHeight,
           ),
           const Divider(),
-          _buildContentTabBar(pageName, containerHeight),
           // TabBarHomePageView(
+          //   opacityContainer: imageOpacity,
           //   containerHeight: containerHeight,
           // ),
+          _buildContentTabBar(pageName, containerHeight, imageOpacity),
         ],
       ),
     );
   }
 
-  Widget _buildContentTabBar(String pageName, double containerHeight) {
+  Widget _buildContentTabBar(
+      String pageName, double containerHeight, double opacityContainer) {
     switch (pageName) {
-      case 'initail':
+      case 'initial':
         return TabBarHomePageView(
+          opacityContainer: opacityContainer,
           containerHeight: containerHeight,
         );
       case 'home-page':
+        // return Container();
         return TabBarHomePageView(
+          opacityContainer: opacityContainer,
           containerHeight: containerHeight,
         );
       case 'about-us':
@@ -190,8 +214,30 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
               "Potrzebujesz czegoś? Możemy pomóc. Niezależnie od rodzaju działalności, wielkości firmy czy lokalizacji nasze specjalistyczne usługi pomogą Ci zaoszczędzić czas, osiągać zyski i jak najlepiej wykonywać prace. Oferujemy światowej klasy technologie i usługi dostosowane do każdego budżetu i wyznaczonego celu. Wybieraj spośród opcji, które pozwalają na samodzielne wykonywanie czynności serwisowych, aż po pełne wsparcie techniczne w miejscu wykonywania prac, zapewniane przez największą w branży sieć dealerów. Osiągniesz swój cel. Możesz liczyć na naszą pomoc. Zróbmy to razem.",
           containerHeight: containerHeight,
         );
+      case 'offer':
+        return TabBarPageView(
+          pageTitle: "oferta",
+          pageText:
+              "Potrzebujesz czegoś? Możemy pomóc. Niezależnie od rodzaju działalności, wielkości firmy czy lokalizacji nasze specjalistyczne usługi pomogą Ci zaoszczędzić czas, osiągać zyski i jak najlepiej wykonywać prace. Oferujemy światowej klasy technologie i usługi dostosowane do każdego budżetu i wyznaczonego celu. Wybieraj spośród opcji, które pozwalają na samodzielne wykonywanie czynności serwisowych, aż po pełne wsparcie techniczne w miejscu wykonywania prac, zapewniane przez największą w branży sieć dealerów. Osiągniesz swój cel. Możesz liczyć na naszą pomoc. Zróbmy to razem.",
+          containerHeight: containerHeight,
+        );
+      case 'career':
+        return TabBarPageView(
+          pageTitle: "kariera",
+          pageText:
+              "Potrzebujesz czegoś? Możemy pomóc. Niezależnie od rodzaju działalności, wielkości firmy czy lokalizacji nasze specjalistyczne usługi pomogą Ci zaoszczędzić czas, osiągać zyski i jak najlepiej wykonywać prace. Oferujemy światowej klasy technologie i usługi dostosowane do każdego budżetu i wyznaczonego celu. Wybieraj spośród opcji, które pozwalają na samodzielne wykonywanie czynności serwisowych, aż po pełne wsparcie techniczne w miejscu wykonywania prac, zapewniane przez największą w branży sieć dealerów. Osiągniesz swój cel. Możesz liczyć na naszą pomoc. Zróbmy to razem.",
+          containerHeight: containerHeight,
+        );
+      case 'contact':
+        return TabBarPageView(
+          pageTitle: "kontakt",
+          pageText:
+              "Potrzebujesz czegoś? Możemy pomóc. Niezależnie od rodzaju działalności, wielkości firmy czy lokalizacji nasze specjalistyczne usługi pomogą Ci zaoszczędzić czas, osiągać zyski i jak najlepiej wykonywać prace. Oferujemy światowej klasy technologie i usługi dostosowane do każdego budżetu i wyznaczonego celu. Wybieraj spośród opcji, które pozwalają na samodzielne wykonywanie czynności serwisowych, aż po pełne wsparcie techniczne w miejscu wykonywania prac, zapewniane przez największą w branży sieć dealerów. Osiągniesz swój cel. Możesz liczyć na naszą pomoc. Zróbmy to razem.",
+          containerHeight: containerHeight,
+        );
       default:
         return TabBarHomePageView(
+          opacityContainer: opacityContainer,
           containerHeight: containerHeight,
         );
     }
@@ -207,83 +253,3 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 }
 
 // ******************************************************************************************
-
-class TabBarHomePageView extends StatefulWidget {
-  const TabBarHomePageView({
-    super.key,
-    required this.containerHeight,
-  });
-  final double containerHeight;
-  @override
-  State<TabBarHomePageView> createState() => _TabBarHomePageViewState();
-}
-
-class _TabBarHomePageViewState extends State<TabBarHomePageView> {
-  @override
-  Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        if (widget.containerHeight > 86)
-          _buildRow(
-            [
-              "Serwis",
-              "Dźwigi",
-            ],
-            screenSize.width > 400 ? screenSize : screenSize * 0.9,
-            screenSize.width > 550 ? widget.containerHeight : 120,
-            [
-              "Oferujemy profesjonalne usługi serwisowe zapewniające niezawodność i bezpieczeństwo wszystkich instalacji.",
-              "Specjalizujemy się w dostarczaniu nowoczesnych i bezpiecznych rozwiązań dźwigowych, dopasowanych do indywidualnych potrzeb klientów."
-            ],
-            screenSize.width * 0.012,
-            1,
-          ),
-        if (widget.containerHeight > 100)
-          _buildRow(
-            [
-              "Referencje",
-              "Aktualności",
-            ],
-            screenSize.width > 400 ? screenSize : screenSize,
-            screenSize.width > 550 ? widget.containerHeight : 120,
-            [
-              "Zaufaj naszym realizacjom – współpracowaliśmy z wieloma zadowolonymi klientami z różnych branż.",
-              "Bądź na bieżąco z najnowszymi informacjami i osiągnięciami firmy ALTEL Group."
-            ],
-            screenSize.width * 0.012,
-            1,
-          ),
-      ],
-    );
-  }
-
-  Row _buildRow(
-    List<String> subtitles,
-    Size screenSize,
-    double containerHeight,
-    List<String> containerText,
-    double textSize,
-    double textOpacity,
-  ) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(subtitles.length, (index) {
-        return AnimatedOpacity(
-          opacity: containerHeight > 50 ? 1.0 : 0.0,
-          duration: const Duration(milliseconds: 300),
-          child: ContainerNavigator(
-            textOpacity: textOpacity,
-            subtitle: subtitles[index],
-            containerHeight: containerHeight,
-            containerWidth:
-                screenSize.width * 0.4 > 250 ? screenSize.width * 0.4 : 150,
-            textSize: textSize,
-            containerText: containerText,
-            textNumber: index,
-          ),
-        );
-      }),
-    );
-  }
-}

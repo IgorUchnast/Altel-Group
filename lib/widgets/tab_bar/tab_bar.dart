@@ -10,10 +10,12 @@ class TabBarNavigator extends StatefulWidget {
     required this.tabBarHeight,
     required this.tabBarDrawerHeight,
     required this.tabBarDrawerWidth,
+    required this.scrollController,
   });
   final double tabBarHeight;
   final double tabBarDrawerHeight;
   final double tabBarDrawerWidth;
+  final ScrollController scrollController;
 
   @override
   State<TabBarNavigator> createState() => _TabBarNavigatorState();
@@ -25,9 +27,8 @@ class _TabBarNavigatorState extends State<TabBarNavigator> {
   void showMenuOverlay(BuildContext context) {
     _overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        // top: widget.tabBarHeight * 0.5, // Pozycja menu poniżej TabBar
         top: 0,
-        right: 0, // Pozycja menu przy prawej krawędzi
+        right: 0,
         child: Material(
           color: Colors.transparent,
           child: Container(
@@ -63,31 +64,36 @@ class _TabBarNavigatorState extends State<TabBarNavigator> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     DrawerButtonNavigator(
+                      scrollController: widget.scrollController,
                       pageName: RouteNames.homePage,
                       buttonText: "strona główna",
                       closeDrawer: hideMenuOverlay,
                       containerWidth: widget.tabBarDrawerWidth * 0.6,
                     ),
                     DrawerButtonNavigator(
+                      scrollController: widget.scrollController,
                       pageName: RouteNames.aboutUs,
                       buttonText: "o firmie",
                       closeDrawer: hideMenuOverlay,
                       containerWidth: widget.tabBarDrawerWidth * 0.6,
                     ),
                     DrawerButtonNavigator(
-                      pageName: RouteNames.aboutUs,
+                      scrollController: widget.scrollController,
+                      pageName: RouteNames.offer,
                       buttonText: "oferta",
                       closeDrawer: hideMenuOverlay,
                       containerWidth: widget.tabBarDrawerWidth * 0.6,
                     ),
                     DrawerButtonNavigator(
-                      pageName: RouteNames.aboutUs,
+                      scrollController: widget.scrollController,
+                      pageName: RouteNames.career,
                       buttonText: "kariera",
                       closeDrawer: hideMenuOverlay,
                       containerWidth: widget.tabBarDrawerWidth * 0.6,
                     ),
                     DrawerButtonNavigator(
-                      pageName: RouteNames.aboutUs,
+                      scrollController: widget.scrollController,
+                      pageName: RouteNames.contact,
                       buttonText: "kontakt",
                       closeDrawer: hideMenuOverlay,
                       containerWidth: widget.tabBarDrawerWidth * 0.6,
@@ -129,27 +135,32 @@ class _TabBarNavigatorState extends State<TabBarNavigator> {
                   "images/logo.png",
                   scale: 2,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconNavigatorButton(
+                      scrollController: widget.scrollController,
                       pageName: RouteNames.homePage,
                     ),
                     TabBarNavigatorButton(
+                      scrollController: widget.scrollController,
                       buttonTitle: "o firmie",
                       pageName: RouteNames.aboutUs,
                     ),
                     TabBarNavigatorButton(
+                      scrollController: widget.scrollController,
                       buttonTitle: "oferta",
-                      pageName: RouteNames.aboutUs,
+                      pageName: RouteNames.offer,
                     ),
                     TabBarNavigatorButton(
+                      scrollController: widget.scrollController,
                       buttonTitle: "kariera",
-                      pageName: RouteNames.aboutUs,
+                      pageName: RouteNames.career,
                     ),
                     TabBarNavigatorButton(
+                      scrollController: widget.scrollController,
                       buttonTitle: "kontakt",
-                      pageName: RouteNames.aboutUs,
+                      pageName: RouteNames.contact,
                     ),
                   ],
                 ),

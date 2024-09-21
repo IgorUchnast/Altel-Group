@@ -20,7 +20,6 @@ class _TabBarPageViewState extends State<TabBarPageView> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Container(
-      // margin: const EdgeInsets.only(top: 10, right: 0, left: 0),
       padding: widget.containerHeight > 80
           ? const EdgeInsets.all(20)
           : const EdgeInsets.all(0),
@@ -39,14 +38,14 @@ class _TabBarPageViewState extends State<TabBarPageView> {
             const SizedBox(
               height: 40,
             ),
-          if (widget.containerHeight > 120)
-            if (screenSize.width > 400)
-              if (widget.containerHeight > 150)
+          if (widget.containerHeight > 150)
+            if (screenSize.width > 300)
+              if (widget.containerHeight > 100)
                 Text(
                   widget.pageText,
                   style: TextStyle(
                     fontSize:
-                        screenSize.width < 700 ? 13 : screenSize.width * 0.016,
+                        screenSize.width < 700 ? 13 : screenSize.width * 0.017,
                   ),
                 ),
         ],
