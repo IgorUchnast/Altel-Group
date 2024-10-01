@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ContactContainer extends StatefulWidget {
-  const ContactContainer({super.key});
-
+  const ContactContainer({
+    super.key,
+    required this.contactContainerText,
+    required this.iconText1,
+    required this.iconText2,
+    required this.iconText3,
+  });
+  final String contactContainerText;
+  final String iconText1;
+  final String iconText2;
+  final String iconText3;
   @override
   State<ContactContainer> createState() => _ContactContainerState();
 }
@@ -28,30 +38,30 @@ class _ContactContainerState extends State<ContactContainer> {
         children: [
           SizedBox(
             width: screenSize.width * 0.4,
-            child: const Text(
-              "Dbamy o wszystko co wiąże się ze zrównoważonym biznesem. Od usług prawnych po zmieniające życie miast rozwiązania proekologiczne. ALTEL GROUP sp. z o.o. dostarcza najlepszą jakość w branży od 2001 roku.",
-              style: TextStyle(
+            child: Text(
+              widget.contactContainerText,
+              style: GoogleFonts.roboto(
                 color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
-          const SizedBox(
+          SizedBox(
             width: 300, // Można dostosować, jeśli to za dużo
             child: Column(
               children: [
                 ContactButton(
                   image: "envelope",
-                  text: "biuro@altel-lift.pl",
+                  text: widget.iconText1,
                 ),
                 ContactButton(
                   image: "phone",
-                  text: "00 48 322 668 047",
+                  text: widget.iconText2,
                 ),
                 ContactButton(
                   image: "map_pointer",
-                  text: "ul. Małobądzka 143,\n 42-500 Będzin",
+                  text: widget.iconText3,
                 ),
               ],
             ),
@@ -85,9 +95,9 @@ class _ContactButtonState extends State<ContactButton> {
         ),
         Text(
           widget.text,
-          style: const TextStyle(
-            fontWeight: FontWeight.w800,
-            fontSize: 20,
+          style: GoogleFonts.roboto(
+            fontWeight: FontWeight.w700,
+            fontSize: 17,
           ),
         )
       ],

@@ -1,3 +1,4 @@
+import 'package:altel_group_web/widgets/contact_form.dart';
 import 'package:flutter/material.dart';
 
 class ContactPage extends StatefulWidget {
@@ -25,24 +26,15 @@ class _ContactPageState extends State<ContactPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    // Size screenSize = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Column(
           children: [
-            Container(
-              color: const Color(0xFFD0E2E8),
-              height: 200,
-              width: screenSize.width,
-            ),
-            Container(
+            ContactForm(
               key: widget.containerKey,
-              color: Colors.white,
-              height: 500,
-              width: screenSize.width * 0.6,
             ),
-            // const ContactContainer(),
           ],
         ),
       ],

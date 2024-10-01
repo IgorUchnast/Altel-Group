@@ -1,3 +1,5 @@
+import 'package:altel_group_web/widgets/navigated_button.dart';
+import 'package:altel_group_web/widgets/text_container.dart';
 import 'package:flutter/material.dart';
 
 class CareerPage extends StatefulWidget {
@@ -13,6 +15,9 @@ class CareerPage extends StatefulWidget {
 }
 
 class _CareerPageState extends State<CareerPage> {
+  final GlobalKey careerContainerKey1 = GlobalKey();
+  final GlobalKey careerContainerKey2 = GlobalKey();
+  final GlobalKey careerContainerKey3 = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -25,25 +30,47 @@ class _CareerPageState extends State<CareerPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        Column(
+        const SizedBox(
+          height: 20,
+        ),
+        const Divider(),
+        Wrap(
+          alignment: WrapAlignment.spaceEvenly,
           children: [
-            Container(
-              color: const Color(0xFFD0E2E8),
-              height: 200,
-              width: 500,
+            NavigatingButton(
+              containerKey: careerContainerKey1,
+              navigatingText: "Monter urządzeń elektrycznych",
             ),
-            Container(
-              key: widget.containerKey,
-              color: Colors.white,
-              height: 500,
-              width: screenSize.width * 0.6,
+            NavigatingButton(
+              containerKey: careerContainerKey2,
+              navigatingText: "Co oferujemy?",
             ),
-            // const ContactContainer(),
+            NavigatingButton(
+              containerKey: careerContainerKey3,
+              navigatingText: "Monter urządzeń dźwigowych",
+            ),
           ],
+        ),
+        const Divider(),
+        TextContainer(
+          key: careerContainerKey1,
+          subtitle: "Monter urządzeń\nelektrycznyche",
+          txt: "",
+        ),
+        Container(
+          key: widget.containerKey,
+          child: TextContainer(
+            key: careerContainerKey2,
+            subtitle: "Co oferujemy?",
+            txt: "",
+          ),
+        ),
+        TextContainer(
+          key: careerContainerKey3,
+          subtitle: "Monter urządzeń\ndźwigowych",
+          txt: "",
         ),
       ],
     );

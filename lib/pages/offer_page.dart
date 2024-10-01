@@ -1,4 +1,6 @@
+import 'package:altel_group_web/pages/home_page.dart';
 import 'package:altel_group_web/widgets/navigated_button.dart';
+import 'package:altel_group_web/widgets/text_container.dart';
 import 'package:flutter/material.dart';
 
 class OfferPage extends StatefulWidget {
@@ -15,27 +17,22 @@ class OfferPage extends StatefulWidget {
 
 class _OfferPageState extends State<OfferPage> {
   final GlobalKey offerContainerKey = GlobalKey();
-  final ScrollController _scrollController = ScrollController();
+  final GlobalKey cranesContainerKey = GlobalKey();
+  final GlobalKey servicesContainerKey = GlobalKey();
+  final GlobalKey technologyContainerKey = GlobalKey();
+  final GlobalKey trainingContainerKey = GlobalKey();
   @override
   void initState() {
     super.initState();
     if (widget.containerKey != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         scrollTo(widget.containerKey!);
-        _scrollController.jumpTo(0);
       });
     }
   }
 
-  // @override
-  // void dispose() {
-  //   _scrollController.dispose(); // Pamiętaj o zwolnieniu kontrolera
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // Size screenSize = MediaQuery.of(context).size;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -44,48 +41,80 @@ class _OfferPageState extends State<OfferPage> {
         ),
         const Divider(),
         Wrap(
-          alignment: WrapAlignment.center,
+          alignment: WrapAlignment.spaceEvenly,
           children: [
             NavigatingButton(
-              containerKey: offerContainerKey,
+              containerKey: cranesContainerKey,
               navigatingText: "dźwigi",
             ),
             NavigatingButton(
-              containerKey: offerContainerKey,
+              containerKey: servicesContainerKey,
               navigatingText: "usługi",
             ),
             NavigatingButton(
-              containerKey: offerContainerKey,
-              navigatingText: "serwis",
-            ),
-            NavigatingButton(
-              containerKey: offerContainerKey,
+              containerKey: technologyContainerKey,
               navigatingText: "technologia",
             ),
             NavigatingButton(
-              containerKey: offerContainerKey,
+              containerKey: trainingContainerKey,
               navigatingText: "szkolenia",
             ),
           ],
         ),
         const Divider(),
-        Container(
-          color: const Color(0xFFD0E2E8),
-          height: 200,
-          width: 500,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SubSubTitle(
+              key: cranesContainerKey,
+              subsubTitleText: "Dźwigi",
+            ),
+          ],
         ),
-        Container(
-          // key: widget.containerKey,
-          key: offerContainerKey,
-          color: Colors.white,
-          height: 500,
-          // width: screenSize.width * 0.6,
-        ),
-        Container(
+        TextContainer(
           key: widget.containerKey,
-          color: Colors.blue,
-          height: 500,
-          // width: screenSize.width * 0.6,
+          subtitle: "WÓZKI WIDŁOWE",
+          txt: "",
+        ),
+        const TextContainer(
+          subtitle: "platformy\ndźwigowe",
+          txt: "",
+        ),
+        const TextContainer(
+          subtitle: "dźwigi\nhydrauliczne",
+          txt: "",
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SubSubTitle(
+              key: servicesContainerKey,
+              subsubTitleText: "Usługi",
+            ),
+          ],
+        ),
+        const TextContainer(
+          subtitle: "konserwacje\ndźwigów",
+          txt:
+              "Potrzebujesz czegoś? Możemy pomóc. Niezależnie od rodzaju działalności, wielkości firmy czy lokalizacji nasze specjalistyczne usługi pomogą Ci zaoszczędzić czas, osiągać zyski i jak najlepiej wykonywać prace. Oferujemy światowej klasy technologie i usługi dostosowane do każdego budżetu i wyznaczonego celu. Wybieraj spośród opcji, które pozwalają na samodzielne wykonywanie czynności serwisowych, aż po pełne wsparcie techniczne w miejscu wykonywania prac, zapewniane przez największą w branży sieć dealerów. Osiągniesz swój cel. Możesz liczyć na naszą pomoc. Zróbmy to razem.",
+        ),
+        TextContainer(
+          key: trainingContainerKey,
+          subtitle: "Szkolenia",
+          txt: "",
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SubSubTitle(
+              key: technologyContainerKey,
+              subsubTitleText: "Technologia",
+            ),
+          ],
+        ),
+        const TextContainer(
+          subtitle: "ekologiczne\nrozwiązania",
+          txt: "",
         ),
       ],
     );

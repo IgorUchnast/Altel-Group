@@ -58,6 +58,8 @@
 // }
 
 // *******************************************************************
+import 'package:altel_group_web/widgets/navigated_button.dart';
+import 'package:altel_group_web/widgets/text_container.dart';
 import 'package:flutter/material.dart';
 
 class AboutUsPage extends StatefulWidget {
@@ -73,6 +75,10 @@ class AboutUsPage extends StatefulWidget {
 }
 
 class _AboutUsPageState extends State<AboutUsPage> {
+  final GlobalKey referenceContainerKey = GlobalKey();
+  final GlobalKey rangeOfExperticeContainerKey = GlobalKey();
+  final GlobalKey cadreContainerKey = GlobalKey();
+  final GlobalKey rightsContainerKey = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -85,24 +91,56 @@ class _AboutUsPageState extends State<AboutUsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        Column(
+        const SizedBox(
+          height: 20,
+        ),
+        const Divider(),
+        Wrap(
+          alignment: WrapAlignment.spaceEvenly,
           children: [
-            Container(
-              color: const Color(0xFFD0E2E8),
-              height: 2000,
-              width: 500,
+            NavigatingButton(
+              containerKey: referenceContainerKey,
+              navigatingText: "Referencje",
             ),
-            Container(
-              key: widget.containerKey,
-              color: Colors.red,
-              height: 2000,
-              width: 500,
-              child: const Text("DUPA"),
+            NavigatingButton(
+              containerKey: rangeOfExperticeContainerKey,
+              navigatingText: "Zakres działalności",
+            ),
+            NavigatingButton(
+              containerKey: cadreContainerKey,
+              navigatingText: "Kadra",
+            ),
+            NavigatingButton(
+              containerKey: rightsContainerKey,
+              navigatingText: "Uprawnienia",
             ),
           ],
+        ),
+        const Divider(),
+        Container(
+          key: widget.containerKey,
+          child: TextContainer(
+            key: referenceContainerKey,
+            subtitle: "Referencje",
+            txt: "",
+          ),
+        ),
+        TextContainer(
+          key: rangeOfExperticeContainerKey,
+          subtitle: "Zakres działalności",
+          txt: "",
+        ),
+        TextContainer(
+          key: cadreContainerKey,
+          subtitle: "Kadra",
+          txt: "",
+        ),
+        TextContainer(
+          key: rightsContainerKey,
+          subtitle: "Uprawnienia",
+          txt: "",
         ),
       ],
     );

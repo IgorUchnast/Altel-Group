@@ -10,11 +10,9 @@ class InitialPage extends StatefulWidget {
     super.key,
     required this.page,
     required this.pageName,
-    // required this.tabBarView,
   });
   final Widget page;
   final String pageName;
-  // final Widget tabBarView;
 
   @override
   State<InitialPage> createState() => _InitialPageState();
@@ -27,7 +25,7 @@ class _InitialPageState extends State<InitialPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController.jumpTo(0);
+      _scrollController.jumpTo(20);
     });
     _scrollController.addListener(() {
       setState(() {});
@@ -53,7 +51,6 @@ class _InitialPageState extends State<InitialPage> {
               pinned: true,
               delegate: MySliverAppBarDelegate(
                 minHeight: 170.0,
-                // maxHeight: 700.0,
                 maxHeight:
                     screenSize.width > 250 ? 700 : screenSize.height * 0.7,
                 screenSize: screenSize,
@@ -61,14 +58,19 @@ class _InitialPageState extends State<InitialPage> {
                     _scrollController.hasClients ? _scrollController.offset : 0,
                 pageName: widget.pageName,
                 scrollController: _scrollController,
-                // tabBarView: widget.tabBarView,
               ),
             ),
             SliverToBoxAdapter(
               child: widget.page,
             ),
             const SliverToBoxAdapter(
-              child: ContactContainer(),
+              child: ContactContainer(
+                contactContainerText:
+                    "Dbamy o wszystko co wiąże się ze zrównoważonym biznesem. Od usług prawnych po zmieniające życie miast rozwiązania proekologiczne. ALTEL GROUP sp. z o.o. dostarcza najlepszą jakość w branży od 2001 roku.",
+                iconText1: "biuro@altel-lift.pl",
+                iconText2: "00 48 322 668 047",
+                iconText3: "ul. Małobądzka 143,\n 42-500 Będzin",
+              ),
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:altel_group_web/widgets/subtitle.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,10 +30,10 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(50),
           ),
-          child: const Text(
+          child: Text(
             "Najdłużej działająca na rynku firma środowiskowa łącząca wiedzę, technologię i naukę z biznesem.",
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: GoogleFonts.roboto(
               color: Colors.black,
               fontWeight: FontWeight.w800,
               fontSize: 17,
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               text1: "images/service_elevator.png",
             ),
             InformationContainer(
-              text: "KONSERWACJA\n DŹWIGÓW",
+              text: "KONSERWACJA\nDŹWIGÓW",
               text1: "images/repair.png",
             ),
           ],
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         const Wrap(
           children: [
             InformationContainer(
-              text: "PLATFORMA\n DŹWIGOWA",
+              text: "PLATFORMA\nDŹWIGOWA",
               text1: "images/wheelchair.png",
             ),
             InformationContainer(
@@ -93,8 +94,8 @@ class SubSubTitle extends StatelessWidget {
               Text(
                 subsubTitleText.toUpperCase(),
                 textAlign: TextAlign.justify,
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 112, 112, 112),
+                style: GoogleFonts.roboto(
+                  color: const Color.fromARGB(255, 112, 112, 112),
                   fontSize: 24,
                   fontWeight: FontWeight.w800,
                 ),
@@ -180,7 +181,7 @@ class _InformationContainerState extends State<InformationContainer> {
             children: [
               Subtitle(
                 subtitle: widget.text,
-                fontSizeSubtitle: 20,
+                fontSizeSubtitle: 18,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

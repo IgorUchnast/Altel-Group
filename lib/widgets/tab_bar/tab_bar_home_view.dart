@@ -23,7 +23,7 @@ class _TabBarHomePageViewState extends State<TabBarHomePageView> {
         if (widget.containerHeight > 86)
           _buildRow(
             [
-              "Serwis",
+              "Referencje",
               "Dźwigi",
             ],
             [RouteNames.aboutUs, RouteNames.offer],
@@ -37,13 +37,16 @@ class _TabBarHomePageViewState extends State<TabBarHomePageView> {
             1,
             // widget.opacityContainer,
           ),
-        if (widget.containerHeight > 100)
+        if (widget.containerHeight > 110)
           _buildRow(
             [
-              "Referencje",
-              "Aktualności",
+              "Co oferujemy?",
+              "Formularz\nzgłoszeniowy",
             ],
-            [RouteNames.career, RouteNames.contact],
+            [
+              RouteNames.career,
+              RouteNames.contact,
+            ],
             screenSize.width > 400 ? screenSize : screenSize,
             screenSize.width > 550 ? widget.containerHeight : 120,
             [
@@ -76,12 +79,11 @@ class _TabBarHomePageViewState extends State<TabBarHomePageView> {
           duration: const Duration(milliseconds: 300),
           child: ContainerNavigator(
             containerName: texTitle[index],
-            // containerName: RouteNames.aboutUs,
             textOpacity: textOpacity,
             subtitle: subtitles[index],
             containerHeight: containerHeight,
             containerWidth:
-                screenSize.width * 0.4 > 250 ? screenSize.width * 0.4 : 150,
+                screenSize.width * 0.4 > 250 ? screenSize.width * 0.4 : 170,
             textSize: textSize,
             containerText: containerText,
             textNumber: index,

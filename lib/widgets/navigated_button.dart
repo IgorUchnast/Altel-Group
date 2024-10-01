@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NavigatingButton extends StatefulWidget {
   const NavigatingButton({
@@ -50,8 +51,14 @@ class _NavigatingButtonState extends State<NavigatingButton> {
             child: Text(
               widget.navigatingText.toUpperCase(),
               style: isSelected
-                  ? const TextStyle(color: Colors.white)
-                  : const TextStyle(color: Colors.black),
+                  ? GoogleFonts.roboto(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700)
+                  : GoogleFonts.roboto(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700),
             ),
           ),
         ),

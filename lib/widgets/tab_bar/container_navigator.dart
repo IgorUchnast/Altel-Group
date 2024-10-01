@@ -1,6 +1,7 @@
 import 'package:altel_group_web/widgets/subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ContainerNavigator extends StatefulWidget {
   const ContainerNavigator({
@@ -31,12 +32,10 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
   final GlobalKey aboutUsContainerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    // Size screenSize = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         context.goNamed(
           widget.containerName,
-          // RouteNames.aboutUs,
           extra: aboutUsContainerKey,
         );
       },
@@ -58,12 +57,12 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
           child: Container(
             padding: const EdgeInsets.all(20),
             margin: EdgeInsets.only(
-              top: widget.containerHeight / 10,
-              right: 20,
-              left: 20,
+              top: widget.containerHeight / 15,
+              right: 10,
+              left: 10,
               // right: screenSize.width > 300 ? 20 : 10,
               // left: screenSize.width > 300 ? 20 : 10,
-              bottom: widget.containerHeight / 10,
+              bottom: widget.containerHeight / 15,
             ),
             // constraints: const BoxConstraints(minHeight: 60, minWidth: 200),
             height: widget.containerHeight,
@@ -85,7 +84,7 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
             child: Column(
               children: [
                 Subtitle(
-                  fontSizeSubtitle: widget.containerWidth > 300 ? 20 : 13,
+                  fontSizeSubtitle: widget.containerWidth > 300 ? 18 : 13,
                   subtitle: widget.subtitle,
                 ),
                 if (widget.containerHeight > 180)
@@ -98,9 +97,10 @@ class _ContainerNavigatorState extends State<ContainerNavigator> {
                           widget.containerText[widget.textNumber],
                           textAlign: TextAlign.justify,
                           softWrap: true,
-                          style: TextStyle(
+                          style: GoogleFonts.roboto(
                             color: Colors.black,
                             fontSize: widget.textSize,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),

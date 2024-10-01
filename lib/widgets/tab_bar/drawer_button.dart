@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DrawerButtonNavigator extends StatefulWidget {
   const DrawerButtonNavigator({
@@ -47,13 +48,14 @@ class _DrawerButtonNavigatorState extends State<DrawerButtonNavigator> {
           padding: const EdgeInsets.all(20),
           alignment: Alignment.centerLeft,
           color: isSelected ? Colors.lightBlue.withOpacity(0.5) : Colors.white,
-          // color: isSelected ? const Color(0xFFD0E2E8) : Colors.white,
           width: widget.containerWidth,
           height: 60,
           child: Text(
             widget.buttonText.toUpperCase(),
-            style: TextStyle(
+            style: GoogleFonts.roboto(
               color: isSelected ? Colors.white : Colors.black,
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),

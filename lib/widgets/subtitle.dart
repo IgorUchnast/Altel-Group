@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Subtitle extends StatelessWidget {
   const Subtitle({
@@ -11,7 +12,6 @@ class Subtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Size screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
         Padding(
@@ -25,7 +25,7 @@ class Subtitle extends StatelessWidget {
                   SelectionArea(
                     child: Text(
                       subtitle.toUpperCase(),
-                      style: TextStyle(
+                      style: GoogleFonts.roboto(
                         fontSize: fontSizeSubtitle,
                         fontWeight: FontWeight.w900,
                       ),

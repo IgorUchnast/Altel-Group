@@ -1,5 +1,6 @@
 import 'package:altel_group_web/widgets/title.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TabBarPageView extends StatefulWidget {
   const TabBarPageView({
@@ -31,7 +32,10 @@ class _TabBarPageViewState extends State<TabBarPageView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                PageTitle(subtitle: widget.pageTitle, fontSizeTitle: 25),
+                PageTitle(
+                  subtitle: widget.pageTitle,
+                  fontSizeTitle: 25,
+                ),
               ],
             ),
           if (widget.containerHeight > 100)
@@ -43,7 +47,10 @@ class _TabBarPageViewState extends State<TabBarPageView> {
               if (widget.containerHeight > 100)
                 Text(
                   widget.pageText,
-                  style: TextStyle(
+                  textAlign: TextAlign.justify,
+                  style: GoogleFonts.roboto(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
                     fontSize:
                         screenSize.width < 700 ? 13 : screenSize.width * 0.017,
                   ),

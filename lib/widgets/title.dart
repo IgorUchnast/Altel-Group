@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PageTitle extends StatelessWidget {
   const PageTitle({
@@ -25,7 +26,7 @@ class PageTitle extends StatelessWidget {
                   SelectionArea(
                     child: Text(
                       subtitle.toUpperCase(),
-                      style: TextStyle(
+                      style: GoogleFonts.roboto(
                         fontSize: fontSizeTitle,
                         fontWeight: FontWeight.w900,
                       ),
