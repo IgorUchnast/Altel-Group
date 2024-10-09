@@ -1,6 +1,7 @@
 //**************************************** POPRAWNA WERSJA ****************************************
 import 'package:altel_group_web/widgets/contact_container.dart';
 import 'package:altel_group_web/widgets/tab_bar/bar_page_view.dart';
+import 'package:altel_group_web/widgets/tab_bar/contact_tab_bar_view.dart';
 import 'package:altel_group_web/widgets/tab_bar/tab_bar_home_view.dart';
 import 'package:flutter/material.dart';
 import '../widgets/tab_bar/tab_bar.dart';
@@ -161,7 +162,7 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       margin: screenSize.width > 900
           ? const EdgeInsets.all(30)
           : const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(0),
       decoration: BoxDecoration(
         color:
             appbarHeight > 0.9 ? Colors.white : Colors.white.withOpacity(0.9),
@@ -185,10 +186,6 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
             tabBarHeight: containerHeight,
           ),
           const Divider(),
-          // TabBarHomePageView(
-          //   opacityContainer: imageOpacity,
-          //   containerHeight: containerHeight,
-          // ),
           _buildContentTabBar(pageName, containerHeight, imageOpacity),
         ],
       ),
@@ -231,7 +228,7 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
           containerHeight: containerHeight,
         );
       case 'contact':
-        return TabBarPageView(
+        return ContactTabBarView(
           pageTitle: "kontakt",
           pageText:
               "Potrzebujesz czegoś? Możemy pomóc. Niezależnie od rodzaju działalności, wielkości firmy czy lokalizacji nasze specjalistyczne usługi pomogą Ci zaoszczędzić czas, osiągać zyski i jak najlepiej wykonywać prace. Oferujemy światowej klasy technologie i usługi dostosowane do każdego budżetu i wyznaczonego celu. Wybieraj spośród opcji, które pozwalają na samodzielne wykonywanie czynności serwisowych, aż po pełne wsparcie techniczne w miejscu wykonywania prac, zapewniane przez największą w branży sieć dealerów. Osiągniesz swój cel. Możesz liczyć na naszą pomoc. Zróbmy to razem.",

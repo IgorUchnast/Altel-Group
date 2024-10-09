@@ -32,7 +32,7 @@ class _TabBarNavigatorState extends State<TabBarNavigator> {
         child: Material(
           color: Colors.transparent,
           child: Container(
-            width: widget.tabBarDrawerWidth * 0.6,
+            width: widget.tabBarDrawerWidth * 0.7,
             height: widget.tabBarDrawerHeight,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
