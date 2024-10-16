@@ -1,3 +1,4 @@
+import 'package:altel_group_web/widgets/google_maps_view.dart';
 import 'package:altel_group_web/widgets/subtitle.dart';
 import 'package:altel_group_web/widgets/title.dart';
 import 'package:flutter/material.dart';
@@ -30,16 +31,12 @@ class _ContactTabBarViewState extends State<ContactTabBarView> {
               bottom: 20,
             )
           : const EdgeInsets.all(0),
-      // padding: screenSize.width > 600
-      //     ? const EdgeInsets.all(20)
-      //     : const EdgeInsets.all(0),
       color: Colors.transparent,
       width: screenSize.width * 0.9,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-            // width: screenSize.width > 800 ? 400 : 250,
             width: 240,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -75,13 +72,12 @@ class _ContactTabBarViewState extends State<ContactTabBarView> {
           ),
           Container(
             height: widget.containerHeight * 2,
-            // width: screenSize.width * 0.5 - screenSize.width * 0.1,
             width: screenSize.width > 680
                 ? screenSize.width * 0.65 - screenSize.width * 0.15
                 : 200,
-            // : screenSize.width * 0.5 - screenSize.width * 0.2,
             color: Colors.white,
-            child: Image.asset("images/mapa.png", fit: BoxFit.cover),
+            // child: Image.asset("images/mapa.png", fit: BoxFit.cover),
+            child: const MapSample(),
           ),
         ],
       ),
