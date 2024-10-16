@@ -2,14 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapSample extends StatefulWidget {
-  const MapSample({super.key});
+class GoogleMapsContainer extends StatefulWidget {
+  const GoogleMapsContainer({super.key});
 
   @override
-  State<MapSample> createState() => MapSampleState();
+  State<GoogleMapsContainer> createState() => GoogleMapsContainerState();
 }
 
-class MapSampleState extends State<MapSample> {
+class GoogleMapsContainerState extends State<GoogleMapsContainer> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
@@ -50,14 +50,14 @@ class MapSampleState extends State<MapSample> {
           _controller.complete(controller);
         },
       ),
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.only(right: 40),
-      //   child: FloatingActionButton.extended(
-      //     onPressed: _goToLocation,
-      //     label: const Text('Altel Group sp. z o.o.'),
-      //     icon: const Icon(Icons.location_pin),
-      //   ),
-      // ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(right: 40),
+        child: FloatingActionButton.extended(
+          onPressed: _goToLocation,
+          label: const Text('Altel Group sp. z o.o.'),
+          icon: const Icon(Icons.location_pin),
+        ),
+      ),
     );
   }
 

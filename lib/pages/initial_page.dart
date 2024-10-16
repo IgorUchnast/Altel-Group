@@ -1,5 +1,7 @@
 //**************************************** POPRAWNA WERSJA ****************************************
+import 'package:altel_group_web/pages/home_page.dart';
 import 'package:altel_group_web/widgets/contact_container.dart';
+import 'package:altel_group_web/widgets/google_maps_container.dart';
 import 'package:altel_group_web/widgets/tab_bar/bar_page_view.dart';
 import 'package:altel_group_web/widgets/tab_bar/contact_tab_bar_view.dart';
 import 'package:altel_group_web/widgets/tab_bar/tab_bar_home_view.dart';
@@ -64,13 +66,29 @@ class _InitialPageState extends State<InitialPage> {
             SliverToBoxAdapter(
               child: widget.page,
             ),
-            const SliverToBoxAdapter(
-              child: ContactContainer(
-                contactContainerText:
-                    "Dbamy o wszystko co wiąże się ze zrównoważonym biznesem. Od usług prawnych po zmieniające życie miast rozwiązania proekologiczne. ALTEL GROUP sp. z o.o. dostarcza najlepszą jakość w branży od 2001 roku.",
-                iconText1: "biuro@altel-lift.pl",
-                iconText2: "00 48 322 668 047",
-                iconText3: "ul. Małobądzka 143,\n 42-500 Będzin",
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SubSubTitle(subsubTitleText: "Odwiedź nas"),
+                    ],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    width: screenSize.width * 0.8,
+                    height: 300,
+                    child: const GoogleMapsContainer(),
+                  ),
+                  const ContactContainer(
+                    contactContainerText:
+                        "Dbamy o wszystko co wiąże się ze zrównoważonym biznesem. Od usług prawnych po zmieniające życie miast rozwiązania proekologiczne. ALTEL GROUP sp. z o.o. dostarcza najlepszą jakość w branży od 2001 roku.",
+                    iconText1: "biuro@altel-lift.pl",
+                    iconText2: "00 48 322 668 047",
+                    iconText3: "ul. Małobądzka 143,\n 42-500 Będzin",
+                  ),
+                ],
               ),
             ),
           ],

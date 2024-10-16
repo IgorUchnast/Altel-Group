@@ -1,5 +1,4 @@
 import 'package:altel_group_web/widgets/contact_form.dart';
-import 'package:altel_group_web/widgets/google_maps_view.dart';
 import 'package:flutter/material.dart';
 
 class ContactPage extends StatefulWidget {
@@ -33,16 +32,6 @@ class _ContactPageState extends State<ContactPage> {
       children: [
         Column(
           children: [
-            // Container(
-            //   color: Colors.amber,
-            //   height: 500,
-            //   width: 500,
-            //   child: const MapSample(),
-            // ),
-            // const MapSample(),
-            // Container(
-            //   child: const MapSample(),
-            // ),
             ContactForm(
               key: widget.containerKey,
             ),
